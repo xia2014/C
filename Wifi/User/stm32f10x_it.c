@@ -207,6 +207,7 @@ void USART2_IRQHandler( void )
 		strEsp8266_Fram_Record.InfBit.FramLength = RX_BUF_MAX_LEN - DMA1_Channel6->CNDTR;
 		strEsp8266_Fram_Record.Data_RX_BUF[strEsp8266_Fram_Record.InfBit.FramLength] = '\0';
 		DMA1_Channel6->CNDTR = RX_BUF_MAX_LEN;
+		DMA1_Channel6->CMAR = (u32)strEsp8266_Fram_Record.Data_RX_BUF;
 		//channel6->USART2_RX
 		DMA_Cmd(DMA1_Channel6,ENABLE);
 		//清除空闲线中断标志位

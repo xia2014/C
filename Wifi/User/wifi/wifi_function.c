@@ -90,7 +90,7 @@ bool ESP8266_Cmd ( char * cmd, char * reply1, char * reply2, u32 waittime )
 	
 	Delay_ms ( waittime );                 //延时
 	
-	strEsp8266_Fram_Record .Data_RX_BUF [ strEsp8266_Fram_Record .InfBit .FramLength ]  = '\0';
+	//strEsp8266_Fram_Record .Data_RX_BUF [ strEsp8266_Fram_Record .InfBit .FramLength ]  = '\0';
 //在中断中，FramLength不断自增，直到读数据寄存器为空，在接收机构体的数组最后加上一个'\0'
 	PC_Usart ( "%s", strEsp8266_Fram_Record .Data_RX_BUF );//把WiFi返回的反馈字符串打印到电脑
   
