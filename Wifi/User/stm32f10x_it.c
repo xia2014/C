@@ -32,19 +32,9 @@
 #include <string.h>
 #include "wifi_function.h"
 #include "bsp_ov7725.h"
-//#include "bsp_ov7725.h"
-//#include "bsp_led.h"
-//extern volatile uint8_t Ov7725_vsync;
-//extern volatile uint8_t screen_flag;
-char myStr[] = "This is a test\r\n";
-extern u8 finish;
-char cmd_point = 0;
-extern char cmd[100];
-//extern char *pStrDelimiter [2];
-//extern char debug;
+
 extern void TimingDelay_Decrement(void);
 extern void USART2_printf(USART_TypeDef* USARTx, char *Data,...);
-
 extern volatile uint8_t Ov7725_vsync;
 
 /** @addtogroup STM32F10x_StdPeriph_Template
@@ -171,27 +161,7 @@ void SysTick_Handler(void)
 //  * @param  None
 //  * @retval None
 //  */
-//void USART2_IRQHandler( void )
-//{	
-//	char ch;
 
-//			if( USART_GetITStatus(USART2, USART_IT_RXNE) != RESET )//当读数据寄存器为非空
-//			{
-//				ch = USART_ReceiveData( USART2 );
-
-//				if( strEsp8266_Fram_Record .InfBit .FramLength < ( RX_BUF_MAX_LEN - 1 ) )                       //预留1个字节写结束符
-//				{
-//						strEsp8266_Fram_Record .Data_RX_BUF [ strEsp8266_Fram_Record .InfBit .FramLength ++ ]  = ch;
-//				}
-//			}
-//			if ( USART_GetITStatus( USART2, USART_IT_IDLE ) == SET )                                         //数据帧接收完毕
-//			{//LDLE 检测到空闲线路
-//				strEsp8266_Fram_Record .InfBit .FramFinishFlag = 1;
-//				
-//				ch = USART_ReceiveData( USART2 );                                                              //由软件序列清除中断标志位(先读USART_SR，然后读USART_DR)
-//			
-//			}
-//	}
 void USART2_IRQHandler( void )
 {
 	u8 ch;
@@ -249,14 +219,6 @@ void EXTI0_IRQHandler(void)
     }
 }
 
-//void TIM2_IRQHandler(void)   //TIM2中断
-//{
-//	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
-//	{
-//		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
-//	}
-//}
-
 void TIM3_IRQHandler(void)   //TIM3中断
 {
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
@@ -264,14 +226,6 @@ void TIM3_IRQHandler(void)   //TIM3中断
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
 	}
 }
-
-//void TIM4_IRQHandler(void)   //TIM2中断
-//{
-//	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
-//	{
-//		TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
-//	}
-//}
 
 /**
   * @brief  This function handles PPP interrupt request.

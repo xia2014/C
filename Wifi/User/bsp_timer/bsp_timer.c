@@ -86,7 +86,6 @@ void Motor_Control(void)
 			case '3':Motor_Stop();infrared_scan_flag = 0;break;
 		}
 	}
-	//strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
 	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
 }
 void Duoji_Control(void)
@@ -100,7 +99,6 @@ void Duoji_Control(void)
 			case '3':Duoji_Zero();break;
 		}
 	}
-	//strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
 	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
 }
 
@@ -108,26 +106,20 @@ void Infrared_Scan(void)
 {
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
 	{	   
-		//LED2_ON;
-		//Delay(1000000);
 		Duoji_Zero();
 		Delay_ms( 1000 );
 		Motor_GoStraight();
 	//	printf("直走\r\n");
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
-	{	   
-		//LED2_OFF;
-		//Delay(1000000);
+	{
 		Motor_Stop();
 		Delay_ms( 1000 );
 		Motor_Fallback();
 	//	printf("后退\r\n");
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11) == 0 )   //L为0时左转
-	{	   
-		//LED3_ON;
-		//Delay(1000000);
+	{
 		Duoji_TurnLeft();
 		Delay_ms( 1000 );
 	//	printf("左转然后直走\r\n");
@@ -135,10 +127,6 @@ void Infrared_Scan(void)
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
 	{	   
-		//LED1_ON;
-		//Delay(10000);
-    //LED3_OFF;
-    //Delay(10000);
 		Duoji_TurnRight();
 		Motor_Stop();
 		Delay_ms( 1000 );

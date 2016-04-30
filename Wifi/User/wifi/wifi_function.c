@@ -3,16 +3,11 @@
 #include "bsp_gpio.h"
 #include "bsp_usart.h"
 #include "bsp_SysTick.h"
-#include "bsp_ili9341_lcd.h"
 #include "bsp_ov7725.h"
 #include <string.h> 
 #include <stdio.h>  
 #include <stdbool.h>
 
-//#include "motor.h"
-//#include "duoji.h"
-
-//extern char *pStrDelimiter [2];
 /*
  * 函数名：ESP8266_Choose
  * 描述  ：使能/禁用WF-ESP8266模块
@@ -351,15 +346,13 @@ char * ESP8266_ReceiveString ( FunctionalState enumEnUnvarnishTx )
  */
 void ESP8266_Connect_Server ( void )
 {
-	char /*cStrInput [100] = { 0 },*/ * pStrDelimiter [2]/*, * pBuf, * pStr*/;
-	//u8 uc = 0;
+	char * pStrDelimiter [2];
 	PC_Usart ( "\r\nWiFi实验\r\n" );
-	//Delay_ms ( 2000 );
 	//关掉透明传输
 	ESP8266_Usart ( "+++" );
-	Delay_ms ( 2000 );
+	//延时1秒，确保该指令执行完毕
+	Delay_ms ( 1000 );
 	ESP8266_Net_Mode_Choose ( STA );
-	//ESP8266_Cmd ( "AT+CWLAP", "OK", 0, 5000 );
 	do
 	{
 		pStrDelimiter [0] = "NETGEAR65";
@@ -368,239 +361,9 @@ void ESP8266_Connect_Server ( void )
 //		pStrDelimiter [1] = "69306823";
   } while ( ! ESP8266_JoinAP ( pStrDelimiter [0], pStrDelimiter [1] ) );
 
-	//while ( ! ESP8266_Link_Server ( enumTCP, "eat.weixincore.com", "80", Single_ID ) );
-	//ESP8266_SendString ( DISABLE, "\'{\"type\":\"login\",\"client_name\":\"mcu\",\"room_id\":\"1\"}\'", 52, Single_ID );
-	//while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
-	while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.3", "100", Single_ID ) );
-	//while ( ! ESP8266_Link_Server ( enumTCP, "172.17.135.241", "100", Single_ID ) );
+	while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
+	//while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.3", "100", Single_ID ) );
 	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,100);
 	ESP8266_UnvarnishSend ();
 	ESP8266_SendString ( ENABLE, "{\"type\":\"login\",\"client_name\":\"mcu\",\"room_id\":\"1\"}END", NULL, Single_ID );
-	//ESP8266_SendString ( ENABLE, "webpage:This is a wifi demo", NULL, Single_ID );
-	/*ESP8266_SendString ( ENABLE, "GET xiaoche.html HTTP/1.1\r\n", NULL, Single_ID );
-	ESP8266_SendString ( ENABLE, "Host: xiaoche.html\r\n",                            NULL, Single_ID );
-	ESP8266_SendString ( ENABLE, "User-Agent: abc\r\n",                                     NULL, Single_ID );
-	ESP8266_SendString ( ENABLE, "Connection: close\r\n",                                   NULL, Single_ID );
-	ESP8266_SendString ( ENABLE, "\r\n",                                                    NULL, Single_ID );*/
-
-	//USART_DMACmd(USART2, USART_DMAReq_Rx, ENABLE);
 }
-///*
-// * 函数名：Motor_Control
-// * 描述  ：控制电机
-// * 输入  ：控制字符串
-// * 返回  : 无
-// * 调用  ：被Motor_Duoji()调用
-// */
-//void Motor_Control	( char ch )
-//{
-//		switch( ch )
-//		{
-//			case 'A':
-//				Motor_GoStraight();
-//				break;
-//			case 'B':
-//				Motor_Stop();
-//				break;
-//			case 'C':
-//				Motor_Back();
-//				break;
-//		}
-//}
-///*
-// * 函数名：Duoji_Control
-// * 描述  ：控制舵机
-// * 输入  ：控制字符串
-// * 返回  : 无
-// * 调用  ：被Motor_Duoji()调用
-// */
-//void Duoji_Control( char ch )
-//{
-//		switch( ch )
-//		{
-//			case 'D':
-//				Duoji_Right();
-//				Delay_ms ( 4000 );
-//				break;
-//			case 'E':
-//				Duoji_Left();
-//				Delay_ms ( 4000 );
-//				break;
-//			case 'F':
-//				Duoji_Zero();
-//				Delay_ms ( 4000 );
-//				break;
-//		}
-//}
-///*
-// * 函数名：Cmd_String
-// * 描述  ：将由逗号分隔的字符串拆分成两个字符串
-// * 输入  ：控制字符串
-// * 返回  : 无
-// * 调用  ：被Motor_Duoji()调用
-// */
-//void Cmd_String( char *cStrInput )
-//{
-//	char/* * pStrDelimiter [2],*/ * pBuf, * pStr;
-//	char uc = 0;
-//	pBuf = cStrInput;
-//	uc = 0;
-//	while ( ( pStr = strtok ( pBuf, "," ) ) != NULL )
-//	{
-//		pStrDelimiter [ uc ++ ] = pStr;
-//		pBuf = NULL;
-//	} 
-//	//PC_Usart("str1 is %s,str2 is %s",pStrDelimiter[0],pStrDelimiter[1]);
-//}
-///*
-// * 函数名：Motor_Duoji
-// * 描述  ：两个控制字分别控制电机和舵机
-// * 输入  ：控制字1和控制字2
-// * 返回  : 无
-// * 调用  ：被main函数中的while循环调用
-// */
-//void Motor_Duoji( char *str1, char *str2 )
-//{
-//	Motor_Control( pStrDelimiter[0][0] );
-//	Duoji_Control( pStrDelimiter[1][0] );
-//}
-
-//void Motor_Duoji2 ( char ch )
-//{
-//		switch( ch )
-//		{
-//			case 'A':
-//				Motor_GoStraight();
-//				break;
-//			case 'B':
-//				Motor_Stop();
-//				break;
-//			case 'C':
-//				Motor_Back();
-//				break;
-//			case 'D':
-//				Duoji_Right();
-//				Delay_ms ( 4000 );
-//				break;
-//			case 'E':
-//				Duoji_Left();
-//				Delay_ms ( 4000 );
-//				break;
-//			case 'F':
-//				Duoji_Zero();
-//				Delay_ms ( 4000 );
-//				break;
-//		}
-//}
-
-//void Motor_Control2( char ch )
-//{
-//	u16 CCR1_Val, CCR3_Val;
-//	switch( ch )
-//	{
-//		case 'D':
-//			CCR1_Val = 500;
-//			CCR3_Val = 48;
-//			break;
-//		case 'E':
-//			CCR1_Val = 300;
-//			CCR3_Val = 48;
-//			break;
-//		case 'F':
-//			CCR1_Val = 48;
-//			CCR3_Val = 48;
-//			break;
-//		case 'G':
-//			CCR1_Val = 48;
-//			CCR3_Val = 300;
-//			break;
-//		case 'H':
-//			CCR1_Val = 48;
-//			CCR3_Val = 500;
-//			break;
-//	}
-//	Motor_Mode_Config( CCR1_Val, CCR3_Val );
-//	//PC_Usart("CCR1_Val=%d, CCR3_Val=%d",CCR1_Val, CCR3_Val);
-//}
-
-//void Duoji_Control2( char ch )
-//{
-//	u16 angle;
-//	switch( ch )
-//	{
-//		case 'I':
-//			angle = 60;
-//			break;
-//		case 'J':
-//			angle = 30;
-//			break;
-//		case 'K':
-//			angle = 0;
-//			break;
-//		case 'L':
-//			angle = -30;
-//			break;
-//		case 'M':
-//			angle = -60;
-//			break;
-//	}
-//	Duoji_Mode_Config( angle );
-//}
-
-//void Motor_Duoji3 ( char *str1, char *str2 )
-//{
-//	if( str1[0] == 'A' )
-//	{
-//		Motor_Control2( str2[0] );
-//		//Motor_Mode_Config( 500, 48 );
-//		//PC_Usart("It's A");
-//	}else if( str1[0] == 'B' )
-//	{
-//		Duoji_Control2( str2[0] );
-//	}else if( str1[0] == 'C' )
-//	{
-//		getImage = 1;
-//	}/*else
-//	{
-//		PC_Usart("wrong!");
-//	}*/
-//}
-void DMA_USART1_Send( u8 *addr, uint16_t counts,uint16_t ms )
-{
-	DMA_Cmd (DMA1_Channel4,DISABLE);	
-	DMA1_Channel4->CNDTR = (u32)counts;
-	DMA1_Channel4->CMAR = (u32)addr;
-	DMA_Cmd (DMA1_Channel4,ENABLE);
-	USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
-	Delay_ms(ms);
-	USART_DMACmd(USART1, USART_DMAReq_Tx, DISABLE);
-}
-
-void DMA_USART2_Send( u8 *addr, uint16_t counts, uint16_t ms )
-{
-	DMA_Cmd (DMA1_Channel7,DISABLE);
-	DMA1_Channel7->CNDTR = (u32)counts;
-	DMA1_Channel7->CMAR = (u32)addr;
-	DMA_Cmd (DMA1_Channel7,ENABLE);
-	USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
-	Delay_ms(ms);
-	USART_DMACmd(USART1, USART_DMAReq_Tx, DISABLE);
-}
-//void Camera(void)
-//{
-//		if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'C' )
-//			screen_flag = 1;
-//		if( Ov7725_vsync == 2 )
-//		{
-//			FIFO_PREPARE;  			/*FIFO准备*/
-//			ImagDisp();					/*采集并显示*/
-//			Ov7725_vsync = 0;
-//		}
-//		if( screen_flag == 1 )
-//		{
-//			/* 设置液晶扫描方向为 右下角->左上角 */
-//			Lcd_GramScan( 3 );
-//			Screen_shot(0,0,320,240);
-//			screen_flag = 0;
-//		}
-//}

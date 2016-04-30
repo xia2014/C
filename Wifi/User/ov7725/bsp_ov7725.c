@@ -1,8 +1,6 @@
 #include "bsp_ov7725.h"
 #include "bsp_sccb.h"
-#include "bsp_ili9341_lcd.h"
 #include "wifi_function.h"
-//#include "bsp_usart2.h"
 #include "bsp_SysTick.h"
 #include "bsp_usart.h"
 #include <stdio.h>
@@ -125,22 +123,17 @@ volatile uint8_t Ov7725_vsync ;	 /* 帧同步信号标志，在中断函数和main函数里面使用
 static void FIFO_GPIO_Config(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
-    RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOA | 
-	                          RCC_APB2Periph_GPIOB | 
-	                          RCC_APB2Periph_GPIOC | 
-	                          RCC_APB2Periph_GPIOD , ENABLE);
-	
+    RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | 
+	                          RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD , ENABLE);
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
-
 		/* 1W LED 灯控制 */
-	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
 //    GPIO_Init(GPIOA, &GPIO_InitStructure);
 //		//GPIO_ResetBits(GPIOA, GPIO_Pin_8);
 //		GPIO_SetBits(GPIOA, GPIO_Pin_8);
-	  GPIO_Init(GPIOC, &GPIO_InitStructure);
-	  GPIO_SetBits(GPIOC, GPIO_Pin_8);
-	
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_SetBits(GPIOC, GPIO_Pin_8);
 		/*PD3(FIFO_WEN--FIFO写使能)*/
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
     GPIO_Init(GPIOD, &GPIO_InitStructure);
@@ -153,11 +146,11 @@ static void FIFO_GPIO_Config(void)
 //    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3;
 //    GPIO_Init(GPIOA, &GPIO_InitStructure); 
 //		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
-		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
-		GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
 		
 		/*PC5(FIFO_RCLK-FIFO读时钟)*/
-		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
     GPIO_Init(GPIOC, &GPIO_InitStructure);
 
     /*PB8-PB15(FIFO_DATA--FIFO输出数据)*/
@@ -310,20 +303,18 @@ void ImagDisp(void)
 	uint16_t i, j;
 	uint16_t Camera_Data;
 	unsigned char temp1,temp2;
-	Lcd_GramScan( 2 );
 	if(screen_flag == 1)
 	{
 		printf("Start sending.\r\n");
 	}
 	for(i = 0; i < 240; i++)
 	{
+		ESP8266_Usart ( "START" );
 		for(j = 0; j < 320; j++)
 		{
 			READ_FIFO_PIXEL( Camera_Data );		/* 从FIFO读出一个rgb565像素到Camera_Data变量 */
-			//LCD_WR_Data(Camera_Data);
 			if(screen_flag == 1)
 			{
-				//Delay_ms ( 1 );
 				temp1 = (Camera_Data&0xff00)>>8;
 				temp2 = Camera_Data&0x00ff;
 				USART2->DR = temp1;
@@ -346,30 +337,18 @@ void Camera(void)
 			screen_flag = 1;
 		if( Ov7725_vsync == 2 )
 		{
-				FIFO_PREPARE;  			/*FIFO准备*/
-				ImagDisp();					/*采集并显示*/
-				Ov7725_vsync = 0;
-				screen_flag = 0;
+			FIFO_PREPARE;  			/*FIFO准备*/
+			ImagDisp();					/*采集并显示*/
+			Ov7725_vsync = 0;
+			screen_flag = 0;
 		}
-//		if( screen_flag == 1 )
-//		{
-//			/* 设置液晶扫描方向为 右下角->左上角 */
-//			Lcd_GramScan( 3 );
-//			Screen_shot(0,0,320,240);
-//			screen_flag = 0;
-//		}
 }
 void CameraInit(void)
 {
-//	LCD_Init();
-//	Lcd_GramScan( 2 );
-//	LCD_Clear(0, 0, 320, 240, BACKGROUND);
 	/* ov7725 gpio 初始化 */
 	Ov7725_GPIO_Config();
-	
 	/* ov7725 寄存器配置初始化 */
 	while(Ov7725_Init() != SUCCESS);
-	
 	/* ov7725 场信号线初始化 */
 	VSYNC_Init();
 	screen_flag = 0;

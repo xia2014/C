@@ -30,20 +30,6 @@ char *      ESP8266_ReceiveString               ( FunctionalState enumEnUnvarnis
 
 void        ESP8266_Connect_Server               ( void );
 
-//void				Motor_Control												( char ch );
-//void				Duoji_Control												( char ch );
-//void				Cmd_String													( char *str );
-//void				Motor_Duoji													( char *str1, char *str2 );
-////2015Äê12ÔÂ12ÈÕ
-//void				Motor_Duoji2												( char ch );
-//void				Motor_Control2											( char ch );
-//void				Duoji_Control2											( char ch );
-//void				Motor_Duoji3												( char *str1, char *str2 );
-//#define getImageContorl() if( cmd[0] == 'C' )getImage = 1
-
-void DMA_USART1_Send( u8 *addr, uint16_t counts, uint16_t ms );
-void DMA_USART2_Send( u8 *addr, uint16_t counts, uint16_t ms );
-
 #endif    /* __WIFI_FUNCTION_H */
 
 
