@@ -1,5 +1,5 @@
 #include "bsp_timer.h"
-
+#include <string.h>
 //这里时钟选择为APB1的2倍，而APB1为36M
 //arr：自动重装值。
 //psc：时钟预分频数
@@ -84,7 +84,8 @@ void Motor_Control(void)
 			case '3':Motor_Stop();break;
 		}
 	}
-	strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
+	//strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
+	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
 }
 void Duoji_Control(void)
 {
@@ -97,7 +98,8 @@ void Duoji_Control(void)
 			case '3':Duoji_Zero();break;
 		}
 	}
-	strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
+	//strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
+	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
 }
 
 /***************************END OF FILE****************************/

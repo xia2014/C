@@ -35,6 +35,7 @@ int main(void)
 	ESP8266_Connect_Server();
 	while(1)
 	{
+		Delay_ms ( 500 );
 		Scan_Command();
 //		Camera();
 	}

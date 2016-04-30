@@ -373,6 +373,7 @@ void ESP8266_Connect_Server ( void )
 	//while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
 	while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.3", "100", Single_ID ) );
 	//while ( ! ESP8266_Link_Server ( enumTCP, "172.17.135.241", "100", Single_ID ) );
+	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,100);
 	ESP8266_UnvarnishSend ();
 	ESP8266_SendString ( ENABLE, "{\"type\":\"login\",\"client_name\":\"mcu\",\"room_id\":\"1\"}END", NULL, Single_ID );
 	//ESP8266_SendString ( ENABLE, "webpage:This is a wifi demo", NULL, Single_ID );
