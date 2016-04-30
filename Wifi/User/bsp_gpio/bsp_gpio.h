@@ -9,4 +9,5 @@ void GPIO_SPI1_Config(void);
 void GPIO_SPI3_Config(void);
 void GPIO_DUOJI_Config(void);
 void GPIO_MOTOR_Config(void);
+void GPIO_INFRARED_Config(void);
 #endif /* __GPIO_H */

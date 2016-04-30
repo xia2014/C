@@ -1,5 +1,7 @@
 #include "bsp_timer.h"
+#include "bsp_SysTick.h"
 #include <string.h>
+extern u8 infrared_scan_flag;
 //这里时钟选择为APB1的2倍，而APB1为36M
 //arr：自动重装值。
 //psc：时钟预分频数
@@ -79,9 +81,9 @@ void Motor_Control(void)
 	{
 		switch( strEsp8266_Fram_Record.Data_RX_BUF[1] )
 		{
-			case '1':Motor_GoStrait();break;
+			case '1':Motor_GoStraight();infrared_scan_flag = 1;break;
 			case '2':Motor_Fallback();break;
-			case '3':Motor_Stop();break;
+			case '3':Motor_Stop();infrared_scan_flag = 0;break;
 		}
 	}
 	//strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
@@ -100,6 +102,49 @@ void Duoji_Control(void)
 	}
 	//strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
 	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
+}
+
+void Infrared_Scan(void)
+{
+	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
+	{	   
+		//LED2_ON;
+		//Delay(1000000);
+		Duoji_Zero();
+		Delay_ms( 1000 );
+		Motor_GoStraight();
+	//	printf("直走\r\n");
+	}
+	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
+	{	   
+		//LED2_OFF;
+		//Delay(1000000);
+		Motor_Stop();
+		Delay_ms( 1000 );
+		Motor_Fallback();
+	//	printf("后退\r\n");
+	}
+	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11) == 0 )   //L为0时左转
+	{	   
+		//LED3_ON;
+		//Delay(1000000);
+		Duoji_TurnLeft();
+		Delay_ms( 1000 );
+	//	printf("左转然后直走\r\n");
+    Motor_GoStraight();
+	}
+	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
+	{	   
+		//LED1_ON;
+		//Delay(10000);
+    //LED3_OFF;
+    //Delay(10000);
+		Duoji_TurnRight();
+		Motor_Stop();
+		Delay_ms( 1000 );
+	//	printf("右转然后直走\r\n");
+		Motor_GoStraight();
+	}
 }
 
 /***************************END OF FILE****************************/
