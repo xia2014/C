@@ -354,9 +354,10 @@ void ESP8266_Connect_Server ( void )
 	char /*cStrInput [100] = { 0 },*/ * pStrDelimiter [2]/*, * pBuf, * pStr*/;
 	//u8 uc = 0;
 	PC_Usart ( "\r\nWiFi实验\r\n" );
-	Delay_ms ( 2000 );
+	//Delay_ms ( 2000 );
 	//关掉透明传输
 	ESP8266_Usart ( "+++" );
+	Delay_ms ( 2000 );
 	ESP8266_Net_Mode_Choose ( STA );
 	//ESP8266_Cmd ( "AT+CWLAP", "OK", 0, 5000 );
 	do
@@ -369,8 +370,8 @@ void ESP8266_Connect_Server ( void )
 
 	//while ( ! ESP8266_Link_Server ( enumTCP, "eat.weixincore.com", "80", Single_ID ) );
 	//ESP8266_SendString ( DISABLE, "\'{\"type\":\"login\",\"client_name\":\"mcu\",\"room_id\":\"1\"}\'", 52, Single_ID );
-	while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
-	//while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.2", "100", Single_ID ) );
+	//while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
+	while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.3", "100", Single_ID ) );
 	//while ( ! ESP8266_Link_Server ( enumTCP, "172.17.135.241", "100", Single_ID ) );
 	ESP8266_UnvarnishSend ();
 	ESP8266_SendString ( ENABLE, "{\"type\":\"login\",\"client_name\":\"mcu\",\"room_id\":\"1\"}END", NULL, Single_ID );
