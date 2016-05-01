@@ -6,6 +6,9 @@
 
 #define USART1_DR_Base  0x40013804
 #define USART2_DR_Base  0x40004404		// 0x40004400 + 0x04 = 0x40004404
+
+#define DEBUG_PRINTF(FORMAT,...)  printf(FORMAT,##__VA_ARGS__)
+
 void USART1_Config(void);
 int fputc(int ch, FILE *f);
 int fgetc(FILE *f);

@@ -518,7 +518,7 @@ int Screen_shot(unsigned short int x,\
 			strEsp8266_Fram_Record.Data_RX_BUF[k] = read_data >> 8;
 			strEsp8266_Fram_Record.Data_RX_BUF[k+1] = read_data & 0x0ff;
 		}
-		DMA_USART2_Send((u8*)(strEsp8266_Fram_Record.Data_RX_BUF),k,100);
+		//DMA_USART2_Send((u8*)(strEsp8266_Fram_Record.Data_RX_BUF),k,100);
 	}
 	return 0;
 }

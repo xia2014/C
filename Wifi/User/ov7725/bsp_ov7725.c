@@ -255,28 +255,32 @@ ErrorStatus Ov7725_Init(void)
 	uint16_t i = 0;
 	uint8_t Sensor_IDCode = 0;	
 	
-	printf("ov7725 Register Config Start......");
+	DEBUG_PRINTF("ov7725 Register Config Start......");
+	//printf("ov7725 Register Config Start......");
 	
 	if( 0 == SCCB_WriteByte ( 0x12, 0x80 ) ) /*∏¥Œªsensor */
 	{
-		printf("sccb write data error");		
+		DEBUG_PRINTF("sccb write data error");
+		//printf("sccb write data error");		
 		return ERROR ;
 	}	
 
 	if( 0 == SCCB_ReadByte( &Sensor_IDCode, 1, 0x0b ) )	 /* ∂¡»°sensor ID∫≈*/
 	{
-		printf("read id faild");		
+		DEBUG_PRINTF("read id faild");
+		//printf("read id faild");		
 		return ERROR;
 	}
-	printf("Sensor ID is 0x%x", Sensor_IDCode);	
-	
+	//printf("Sensor ID is 0x%x", Sensor_IDCode);	
+	DEBUG_PRINTF("Sensor ID is 0x%x", Sensor_IDCode);
 	if(Sensor_IDCode == OV7725_ID)
 	{
 		for( i = 0 ; i < OV7725_REG_NUM ; i++ )
 		{
 			if( 0 == SCCB_WriteByte(Sensor_Config[i].Address, Sensor_Config[i].Value) )
-			{                
-				printf("write reg faild"/*, Sensor_Config[i].Address*/);
+			{
+				DEBUG_PRINTF("write reg faild");
+				//printf("write reg faild"/*, Sensor_Config[i].Address*/);
 				return ERROR;
 			}
 		}
@@ -285,8 +289,8 @@ ErrorStatus Ov7725_Init(void)
 	{
 		return ERROR;
 	}
-	printf("ov7725 Register Config Success");
-	
+	//printf("ov7725 Register Config Success");
+	DEBUG_PRINTF("ov7725 Register Config Success");
 	return SUCCESS;
 }
 /*       320
@@ -305,7 +309,8 @@ void ImagDisp(void)
 	unsigned char temp1,temp2;
 	if(screen_flag == 1)
 	{
-		printf("Start sending.\r\n");
+		DEBUG_PRINTF("Start sending.\r\n");
+		//printf("Start sending.\r\n");
 	}
 	for(i = 0; i < 240; i++)
 	{
@@ -327,7 +332,8 @@ void ImagDisp(void)
 	if(screen_flag == 1)
 	{
 		ESP8266_Usart ( "END" );
-		printf("End of ending.\r\n");
+		DEBUG_PRINTF("End of ending.\r\n");
+		//printf("End of ending.\r\n");
 		strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
 	}
 }

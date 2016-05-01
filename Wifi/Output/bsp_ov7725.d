@@ -2,7 +2,7 @@
 ..\output\bsp_ov7725.o: ..\User\ov7725\bsp_ov7725.h
 ..\output\bsp_ov7725.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\bsp_ov7725.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\bsp_ov7725.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\bsp_ov7725.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\output\bsp_ov7725.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\bsp_ov7725.o: ..\User\stm32f10x_conf.h
 ..\output\bsp_ov7725.o: ..\Libraries\FWlib\inc\stm32f10x_dma.h
@@ -16,10 +16,9 @@
 ..\output\bsp_ov7725.o: ..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\output\bsp_ov7725.o: ..\Libraries\FWlib\inc\misc.h
 ..\output\bsp_ov7725.o: ..\User\ov7725\bsp_sccb.h
-..\output\bsp_ov7725.o: ..\User\lcd\bsp_ili9341_lcd.h
 ..\output\bsp_ov7725.o: ..\User\wifi\wifi_function.h
 ..\output\bsp_ov7725.o: ..\User\wifi\wifi_config.h
-..\output\bsp_ov7725.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+..\output\bsp_ov7725.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 ..\output\bsp_ov7725.o: ..\User\bsp_SysTick\bsp_SysTick.h
 ..\output\bsp_ov7725.o: ..\User\bsp_usart\bsp_usart.h
-..\output\bsp_ov7725.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\bsp_ov7725.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h

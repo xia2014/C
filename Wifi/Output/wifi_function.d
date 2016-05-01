@@ -2,7 +2,7 @@
 ..\output\wifi_function.o: ..\User\wifi\wifi_function.h
 ..\output\wifi_function.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\wifi_function.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\wifi_function.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\wifi_function.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\output\wifi_function.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\wifi_function.o: ..\User\stm32f10x_conf.h
 ..\output\wifi_function.o: ..\Libraries\FWlib\inc\stm32f10x_dma.h
@@ -16,11 +16,10 @@
 ..\output\wifi_function.o: ..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\output\wifi_function.o: ..\Libraries\FWlib\inc\misc.h
 ..\output\wifi_function.o: ..\User\wifi\wifi_config.h
-..\output\wifi_function.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+..\output\wifi_function.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 ..\output\wifi_function.o: ..\User\bsp_gpio\bsp_gpio.h
 ..\output\wifi_function.o: ..\User\bsp_usart\bsp_usart.h
-..\output\wifi_function.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\output\wifi_function.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 ..\output\wifi_function.o: ..\User\bsp_SysTick\bsp_SysTick.h
-..\output\wifi_function.o: ..\User\lcd\bsp_ili9341_lcd.h
 ..\output\wifi_function.o: ..\User\ov7725\bsp_ov7725.h
-..\output\wifi_function.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\string.h
+..\output\wifi_function.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
