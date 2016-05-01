@@ -1,7 +1,8 @@
 #include "bsp_timer.h"
 #include "bsp_SysTick.h"
 #include <string.h>
-extern u8 infrared_scan_flag;
+extern u8 volatile infrared_scan_flag;
+extern u8 volatile stop_flag;
 //这里时钟选择为APB1的2倍，而APB1为36M
 //arr：自动重装值。
 //psc：时钟预分频数
@@ -10,7 +11,7 @@ static void Timerx_Init(u16 arr,u16 psc)
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 
-	TIM_TimeBaseStructure.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到5000为500ms
+	TIM_TimeBaseStructure.TIM_Period = arr-1; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到5000为500ms
 	TIM_TimeBaseStructure.TIM_Prescaler =(psc-1); //设置用来作为TIMx时钟频率除数的预分频值  10Khz的计数频率  
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
@@ -70,7 +71,7 @@ void Duoji_Mode_Config(int angle)
 
 void Moving_Init(void)
 {
-	Timerx_Init(1000,1440);
+	Timerx_Init(1000,10);
 	GPIO_DUOJI_Config();
 	GPIO_MOTOR_Config();
 }
@@ -81,9 +82,9 @@ void Motor_Control(void)
 	{
 		switch( strEsp8266_Fram_Record.Data_RX_BUF[1] )
 		{
-			case '1':Motor_GoStraight();infrared_scan_flag = 1;break;
+			case '1':Motor_GoStraight();stop_flag = 0;break;
 			case '2':Motor_Fallback();break;
-			case '3':Motor_Stop();infrared_scan_flag = 0;break;
+			case '3':Motor_Stop();stop_flag = 1;break;
 		}
 	}
 	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
@@ -132,6 +133,18 @@ void Infrared_Scan(void)
 		Delay_ms( 1000 );
 	//	printf("右转然后直走\r\n");
 		Motor_GoStraight();
+	}
+}
+
+void Infrared(void)
+{
+	if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'D' )
+	{
+		switch( strEsp8266_Fram_Record.Data_RX_BUF[1] )
+		{
+			case '1':infrared_scan_flag = 1;break;
+			case '2':infrared_scan_flag = 0;break;
+		}
 	}
 }
 

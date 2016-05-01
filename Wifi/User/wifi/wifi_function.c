@@ -357,12 +357,10 @@ void ESP8266_Connect_Server ( void )
 	{
 		pStrDelimiter [0] = "NETGEAR65";
 		pStrDelimiter [1] = "kindwindow635";
-//		pStrDelimiter [0] = "TP-LINK_65F8";
-//		pStrDelimiter [1] = "69306823";
   } while ( ! ESP8266_JoinAP ( pStrDelimiter [0], pStrDelimiter [1] ) );
 
-	while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
-	//while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.3", "100", Single_ID ) );
+	//while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );
+	while ( ! ESP8266_Link_Server ( enumTCP, "192.168.1.6", "100", Single_ID ) );
 	memset(strEsp8266_Fram_Record.Data_RX_BUF,0,100);
 	ESP8266_UnvarnishSend ();
 	ESP8266_SendString ( ENABLE, "{\"type\":\"login\",\"client_name\":\"mcu\",\"room_id\":\"1\"}END", NULL, Single_ID );

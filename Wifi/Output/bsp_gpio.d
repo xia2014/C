@@ -2,7 +2,7 @@
 ..\output\bsp_gpio.o: ..\User\bsp_gpio\bsp_gpio.h
 ..\output\bsp_gpio.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\bsp_gpio.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\bsp_gpio.o: D:\mdk_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\bsp_gpio.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\output\bsp_gpio.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\bsp_gpio.o: ..\User\stm32f10x_conf.h
 ..\output\bsp_gpio.o: ..\Libraries\FWlib\inc\stm32f10x_dma.h

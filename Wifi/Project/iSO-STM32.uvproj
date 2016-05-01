@@ -518,11 +518,6 @@
               <FilePath>..\User\bsp_gpio\bsp_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_spi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\bsp_spi_flash\bsp_spi_flash.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_SysTick.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\bsp_SysTick\bsp_SysTick.c</FilePath>
@@ -551,11 +546,6 @@
               <FileName>wifi_function.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\wifi\wifi_function.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_ili9341_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\lcd\bsp_ili9341_lcd.c</FilePath>
             </File>
             <File>
               <FileName>bsp_ov7725.c</FileName>
