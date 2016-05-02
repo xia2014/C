@@ -12,6 +12,10 @@
 #define Duoji_TurnRight() Duoji_Mode_Config(-45)
 #define Duoji_Zero() Duoji_Mode_Config(0)
 
+#define DELAY_TIME 500
+#define SPEED 200
+#define ANGLE 60
+
 void Motor_Mode_Config(u16 CCR1_Val,u16 CCR3_Val);
 void Duoji_Mode_Config(int angle);
 void Moving_Init(void);

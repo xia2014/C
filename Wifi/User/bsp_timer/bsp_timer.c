@@ -18,7 +18,17 @@ static void Timer3_Init(u16 arr,u16 psc)
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
-
+	
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	//设置TIM3_CH2的跳变值
+	TIM_OCInitStructure.TIM_Pulse = 75;
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
+	TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
+	TIM_Cmd(TIM4, ENABLE);
+	
 	TIM_ITConfig( TIM3,TIM_IT_Update | TIM_IT_Trigger, ENABLE );
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //先占优先级0级
@@ -40,6 +50,17 @@ static void Timer4_Init(u16 arr,u16 psc)
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
 
+	//float CCR1_Val = 0.5476*angle+75;
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	//设置TIM3_CH2的跳变值
+	TIM_OCInitStructure.TIM_Pulse = 75;
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
+	TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
+	TIM_Cmd(TIM4, ENABLE);
+	
 	TIM_ITConfig( TIM4,TIM_IT_Update | TIM_IT_Trigger, ENABLE );
 	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM3中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //先占优先级0级
@@ -81,14 +102,14 @@ void Duoji_Mode_Config(int angle)
 {
 	float CCR1_Val = 0.5476*angle+75;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	//TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	//TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	//设置TIM3_CH2的跳变值
 	TIM_OCInitStructure.TIM_Pulse = (int)CCR1_Val;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	//TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
-	TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
-	TIM_Cmd(TIM4, ENABLE);
+	//TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
+	//TIM_Cmd(TIM4, ENABLE);
 }
 
 void Moving_Init(void)
@@ -97,6 +118,7 @@ void Moving_Init(void)
 	Timer4_Init(1000,1440);
 	GPIO_DUOJI_Config();
 	GPIO_MOTOR_Config();
+	Duoji_Zero();
 }
 
 void Motor_Control(void)
@@ -132,32 +154,55 @@ void Infrared_Scan(void)
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
 	{	   
 		Duoji_Zero();
-		Delay_ms( 1000 );
-		Motor_GoStraight();
-	//	printf("直走\r\n");
+		Delay_ms( DELAY_TIME );
+		//Motor_GoStraight();
+		Motor_Mode_Config(SPEED,48);
+		Delay_ms( DELAY_TIME );	
 	}
 	//
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
 	{
 		Motor_Stop();
-		Delay_ms( 1000 );
-		Motor_Fallback();
-	//	printf("后退\r\n");
+		Delay_ms( DELAY_TIME );
+		//Motor_Fallback();
+		Motor_Mode_Config(48,SPEED);
+		Delay_ms( DELAY_TIME );
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11) == 0 )   //L为0时左转
 	{
-		Duoji_TurnLeft();
-		Delay_ms( 1000 );
-	//	printf("左转然后直走\r\n");
-		Motor_GoStraight();
+		Motor_Mode_Config(48,SPEED);
+		Delay_ms(300);
+		Motor_Stop();
+		Duoji_Zero();
+		Delay_ms(100);
+		Motor_Mode_Config(48,SPEED);
+		Delay_ms( DELAY_TIME );
+		//Duoji_TurnLeft();
+		Motor_Stop();
+		Duoji_Mode_Config(ANGLE);
+		Delay_ms( DELAY_TIME );
+		//Motor_GoStraight();
+		Motor_Mode_Config(SPEED,48);
+		Delay_ms( DELAY_TIME );
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
-	{	   
-		Duoji_TurnRight();
+	{
+		Motor_Mode_Config(48,SPEED);
+		Delay_ms(300);
 		Motor_Stop();
-		Delay_ms( 1000 );
-	//	printf("右转然后直走\r\n");
-		Motor_GoStraight();
+		Duoji_Zero();
+		Delay_ms(100);
+		Motor_Mode_Config(48,SPEED);
+		Delay_ms( DELAY_TIME );
+		//Duoji_TurnRight();
+		Motor_Stop();
+		Duoji_Mode_Config(-ANGLE);
+		Delay_ms( DELAY_TIME );
+	//	Motor_Stop();
+		//Delay_ms( DELAY_TIME );
+		//Motor_GoStraight();
+		Motor_Mode_Config(SPEED,48);
+		Delay_ms( DELAY_TIME );
 	}
 }
 
