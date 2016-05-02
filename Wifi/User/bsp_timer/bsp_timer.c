@@ -128,6 +128,7 @@ void Duoji_Control(void)
 
 void Infrared_Scan(void)
 {
+	//若检测到前方无障碍物，则舵机摆正，小车直行
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
 	{	   
 		Duoji_Zero();
@@ -135,6 +136,7 @@ void Infrared_Scan(void)
 		Motor_GoStraight();
 	//	printf("直走\r\n");
 	}
+	//
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
 	{
 		Motor_Stop();
@@ -147,7 +149,7 @@ void Infrared_Scan(void)
 		Duoji_TurnLeft();
 		Delay_ms( 1000 );
 	//	printf("左转然后直走\r\n");
-    Motor_GoStraight();
+		Motor_GoStraight();
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
 	{	   
@@ -166,7 +168,7 @@ void Infrared(void)
 		switch( strEsp8266_Fram_Record.Data_RX_BUF[1] )
 		{
 			case '1':infrared_scan_flag = 1;break;
-			case '2':infrared_scan_flag = 0;break;
+			case '2':infrared_scan_flag = 0;Motor_Stop();Duoji_Zero();break;
 		}
 	}
 }

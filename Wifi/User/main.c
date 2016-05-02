@@ -36,13 +36,14 @@ int main(void)
 	Moving_Init();
 	GPIO_INFRARED_Config();
 	ESP8266_Connect_Server();
-	infrared_scan_flag = 0;
+	infrared_scan_flag = 1;
 	stop_flag = 0;
 	while(1)
 	{
 		Delay_ms ( 500 );
 		Scan_Command();
-		if( infrared_scan_flag == 1 && stop_flag != 1 )
+		if( infrared_scan_flag == 1 )
+		//if( infrared_scan_flag == 1 && stop_flag != 1 )
 			Infrared_Scan();
 	}
 }

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\Output\SmartCar.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Output\SmartCar.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon May 02 16:20:00 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon May 02 19:19:08 2016
 <BR><P>
 <H3>Maximum Stack Usage =        364 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -916,7 +916,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[69]"></a>Scan_Command</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = Scan_Command &rArr; Duoji_Control &rArr; Duoji_Mode_Config &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = Scan_Command &rArr; Infrared &rArr; Duoji_Mode_Config &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Control
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Infrared
@@ -926,7 +926,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 364<LI>Call Chain = main &rArr; ESP8266_Connect_Server &rArr; ESP8266_Link_Server &rArr; ESP8266_Cmd &rArr; USART2_printf &rArr; itoa
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WiFi_Config
@@ -1187,6 +1187,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Control
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Infrared_Scan
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Infrared
 </UL>
 
 <P><STRONG><a name="[a8]"></a>Duoji_Mode_Config</STRONG> (Thumb, 98 bytes, Stack size 56 bytes, bsp_timer.o(.text))
@@ -1202,6 +1203,7 @@ Global Symbols
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Infrared_Scan
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Infrared
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Duoji_Control
 </UL>
 
@@ -1243,8 +1245,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6d]"></a>Infrared</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, bsp_timer.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Scan_Command
+<P><STRONG><a name="[6d]"></a>Infrared</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, bsp_timer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = Infrared &rArr; Duoji_Mode_Config &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Duoji_Mode_Config
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Mode_Config
+</UL>
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Scan_Command
 </UL>
 
 <P><STRONG><a name="[6f]"></a>WiFi_Config</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, wifi_config.o(.text))

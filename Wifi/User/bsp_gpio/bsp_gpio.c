@@ -116,17 +116,6 @@ void GPIO_SPI3_Config(void)
 
 void GPIO_DUOJI_Config(void)
 {
-//	GPIO_InitTypeDef GPIO_InitStructure;
-//	/*设置TIM3CLK 为 72MHZ */
-//	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-//	/*GPIOA and GPIOB clock enable */
-//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-//	//DUOJI->PA7
-//	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
-//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//	GPIO_Init(GPIOA, &GPIO_InitStructure);
-	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	/*设置TIM3CLK 为 72MHZ */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
