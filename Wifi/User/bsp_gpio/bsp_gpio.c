@@ -116,16 +116,27 @@ void GPIO_SPI3_Config(void)
 
 void GPIO_DUOJI_Config(void)
 {
+//	GPIO_InitTypeDef GPIO_InitStructure;
+//	/*设置TIM3CLK 为 72MHZ */
+//	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+//	/*GPIOA and GPIOB clock enable */
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+//	//DUOJI->PA7
+//	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	/*设置TIM3CLK 为 72MHZ */
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 	/*GPIOA and GPIOB clock enable */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	//DUOJI->PA7
-	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	//DUOJI->PB6
+	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
 }
 
 void GPIO_MOTOR_Config(void)
@@ -149,7 +160,7 @@ void GPIO_INFRARED_Config(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	//TIM_CH1->PA6
+	//
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_8|GPIO_Pin_11|GPIO_Pin_12;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;

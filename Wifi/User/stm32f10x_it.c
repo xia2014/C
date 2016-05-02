@@ -228,6 +228,14 @@ void TIM3_IRQHandler(void)   //TIM3ÖÐ¶Ï
 	}
 }
 
+void TIM4_IRQHandler(void)   //TIM3ÖÐ¶Ï
+{
+	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)
+	{
+		TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
+	}
+}
+
 /**
   * @brief  This function handles PPP interrupt request.
   * @param  None
