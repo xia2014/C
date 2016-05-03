@@ -2,7 +2,7 @@
 ..\output\bsp_timer.o: ..\User\bsp_timer\bsp_timer.h
 ..\output\bsp_timer.o: ..\Libraries\CMSIS\stm32f10x.h
 ..\output\bsp_timer.o: ..\Libraries\CMSIS\core_cm3.h
-..\output\bsp_timer.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\stdint.h
+..\output\bsp_timer.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\output\bsp_timer.o: ..\Libraries\CMSIS\system_stm32f10x.h
 ..\output\bsp_timer.o: ..\User\stm32f10x_conf.h
 ..\output\bsp_timer.o: ..\Libraries\FWlib\inc\stm32f10x_dma.h
@@ -18,4 +18,4 @@
 ..\output\bsp_timer.o: ..\User\bsp_gpio\bsp_gpio.h
 ..\output\bsp_timer.o: ..\User\wifi\wifi_config.h
 ..\output\bsp_timer.o: ..\User\bsp_SysTick\bsp_SysTick.h
-..\output\bsp_timer.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\string.h
+..\output\bsp_timer.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
