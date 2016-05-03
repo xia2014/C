@@ -1,0 +1,103 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+G:\Coding\stm32\WiFi\Project\RVMDK£¨uv4£©\iSO-STM32.uvproj
+Project File Date:  01/28/2016
+
+<h2>Output:</h2>
+Build target 'WF-ESP8266'
+compiling main.c...
+..\..\User\lcd\bsp_ili9341_lcd.h(48): warning:  #47-D: incompatible redefinition of macro "BLUE" (declared at line 9 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(50): warning:  #47-D: incompatible redefinition of macro "RED" (declared at line 11 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(52): warning:  #47-D: incompatible redefinition of macro "GREEN" (declared at line 12 of "..\..\User\ov7725\bsp_ov7725.h")
+compiling bsp_ov7725.c...
+..\..\User\ov7725\bsp_ov7725.c(314): warning:  #223-D: function "LCD_WR_Data" declared implicitly
+..\..\User\ov7725\bsp_ov7725.c(307): warning:  #177-D: variable "temp1" was declared but never referenced
+..\..\User\ov7725\bsp_ov7725.c(307): warning:  #177-D: variable "temp2" was declared but never referenced
+linking...
+..\..\Output\Template.axf: Error: L6218E: Undefined symbol LCD_WR_Data (referred from bsp_ov7725.o).
+..\..\Output\Template.axf: Error: L6218E: Undefined symbol GetGBKCode_from_sd (referred from bsp_ili9341_lcd.o).
+"..\..\Output\Template.axf" - 2 Errors, 6 Warning(s).
+Target not created
+Build target 'WF-ESP8266'
+compiling bsp_ov7725.c...
+..\..\User\lcd\bsp_ili9341_lcd.h(48): warning:  #47-D: incompatible redefinition of macro "BLUE" (declared at line 9 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(50): warning:  #47-D: incompatible redefinition of macro "RED" (declared at line 11 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(52): warning:  #47-D: incompatible redefinition of macro "GREEN" (declared at line 12 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\ov7725\bsp_ov7725.c(307): warning:  #177-D: variable "temp1" was declared but never referenced
+..\..\User\ov7725\bsp_ov7725.c(307): warning:  #177-D: variable "temp2" was declared but never referenced
+linking...
+..\..\Output\Template.axf: Error: L6218E: Undefined symbol GetGBKCode_from_sd (referred from bsp_ili9341_lcd.o).
+"..\..\Output\Template.axf" - 1 Errors, 5 Warning(s).
+Target not created
+Build target 'WF-ESP8266'
+compiling bsp_ili9341_lcd.c...
+linking...
+..\..\Output\Template.axf: Error: L6218E: Undefined symbol LCD_DispCH (referred from bsp_ili9341_lcd.o).
+"..\..\Output\Template.axf" - 1 Errors, 0 Warning(s).
+Target not created
+Build target 'WF-ESP8266'
+compiling bsp_ili9341_lcd.c...
+linking...
+Program Size: Code=20310 RO-data=1478 RW-data=240 ZI-data=2152  
+FromELF: creating hex file...
+"..\..\Output\Template.axf" - 0 Errors, 0 Warning(s).
+Build target 'WF-ESP8266'
+compiling main.c...
+..\..\User\lcd\bsp_ili9341_lcd.h(48): warning:  #47-D: incompatible redefinition of macro "BLUE" (declared at line 9 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(50): warning:  #47-D: incompatible redefinition of macro "RED" (declared at line 11 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(52): warning:  #47-D: incompatible redefinition of macro "GREEN" (declared at line 12 of "..\..\User\ov7725\bsp_ov7725.h")
+linking...
+Program Size: Code=20298 RO-data=1478 RW-data=240 ZI-data=2152  
+FromELF: creating hex file...
+"..\..\Output\Template.axf" - 0 Errors, 3 Warning(s).
+Build target 'WF-ESP8266'
+compiling main.c...
+..\..\User\lcd\bsp_ili9341_lcd.h(48): warning:  #47-D: incompatible redefinition of macro "BLUE" (declared at line 9 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(50): warning:  #47-D: incompatible redefinition of macro "RED" (declared at line 11 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(52): warning:  #47-D: incompatible redefinition of macro "GREEN" (declared at line 12 of "..\..\User\ov7725\bsp_ov7725.h")
+linking...
+Program Size: Code=20258 RO-data=1478 RW-data=240 ZI-data=2152  
+FromELF: creating hex file...
+"..\..\Output\Template.axf" - 0 Errors, 3 Warning(s).
+Build target 'WF-ESP8266'
+compiling main.c...
+..\..\User\lcd\bsp_ili9341_lcd.h(48): warning:  #47-D: incompatible redefinition of macro "BLUE" (declared at line 9 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(50): warning:  #47-D: incompatible redefinition of macro "RED" (declared at line 11 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(52): warning:  #47-D: incompatible redefinition of macro "GREEN" (declared at line 12 of "..\..\User\ov7725\bsp_ov7725.h")
+linking...
+Program Size: Code=16970 RO-data=338 RW-data=240 ZI-data=2152  
+FromELF: creating hex file...
+"..\..\Output\Template.axf" - 0 Errors, 3 Warning(s).
+Build target 'WF-ESP8266'
+compiling main.c...
+..\..\User\lcd\bsp_ili9341_lcd.h(48): warning:  #47-D: incompatible redefinition of macro "BLUE" (declared at line 9 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(50): warning:  #47-D: incompatible redefinition of macro "RED" (declared at line 11 of "..\..\User\ov7725\bsp_ov7725.h")
+..\..\User\lcd\bsp_ili9341_lcd.h(52): warning:  #47-D: incompatible redefinition of macro "GREEN" (declared at line 12 of "..\..\User\ov7725\bsp_ov7725.h")
+compiling bsp_ili9341_lcd.c...
+..\..\User\lcd\bsp_ili9341_lcd.c(304): warning:  #223-D: function "PC_Usart" declared implicitly
+linking...
+..\..\Output\Template.axf: Error: L6218E: Undefined symbol PC_Usart (referred from bsp_ili9341_lcd.o).
+"..\..\Output\Template.axf" - 1 Errors, 4 Warning(s).
+Target not created
+Build target 'WF-ESP8266'
+compiling bsp_ili9341_lcd.c...
+..\..\User\lcd\bsp_ili9341_lcd.c(304): warning:  #223-D: function "PC_Usart" declared implicitly
+linking...
+..\..\Output\Template.axf: Error: L6218E: Undefined symbol PC_Usart (referred from bsp_ili9341_lcd.o).
+"..\..\Output\Template.axf" - 1 Errors, 1 Warning(s).
+Target not created
+Build target 'WF-ESP8266'
+compiling bsp_ili9341_lcd.c...
+..\..\User\lcd\bsp_ili9341_lcd.c(304): warning:  #223-D: function "printf" declared implicitly
+linking...
+Program Size: Code=20394 RO-data=1478 RW-data=240 ZI-data=2152  
+FromELF: creating hex file...
+"..\..\Output\Template.axf" - 0 Errors, 1 Warning(s).
+Build target 'WF-ESP8266'
+linking...
+Program Size: Code=20394 RO-data=1478 RW-data=240 ZI-data=2152  
+FromELF: creating hex file...
+"..\..\Output\Template.axf" - 0 Errors, 0 Warning(s).
