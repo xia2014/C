@@ -9,6 +9,7 @@ extern u8 volatile stop_flag;
 static void Timer3_Init(u16 arr,u16 psc)
 {
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 
 	TIM_TimeBaseStructure.TIM_Period = arr-1; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到5000为500ms
@@ -19,15 +20,20 @@ static void Timer3_Init(u16 arr,u16 psc)
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
 	
-	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	//TIM_OCInitTypeDef  TIM_OCInitStructure;
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	//设置TIM3_CH2的跳变值
-	TIM_OCInitStructure.TIM_Pulse = 75;
+	TIM_OCInitStructure.TIM_Pulse = 48;
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
-	TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
-	TIM_Cmd(TIM4, ENABLE);
+	
+	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
+	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
+	
+	TIM_OC3Init(TIM3, &TIM_OCInitStructure);
+	TIM_OC3PreloadConfig(TIM3, TIM_OCPreload_Enable);
+	
+	TIM_Cmd(TIM3, ENABLE);
 	
 	TIM_ITConfig( TIM3,TIM_IT_Update | TIM_IT_Trigger, ENABLE );
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
@@ -40,6 +46,7 @@ static void Timer3_Init(u16 arr,u16 psc)
 static void Timer4_Init(u16 arr,u16 psc)
 {
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 
 	TIM_TimeBaseStructure.TIM_Period = arr-1; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	 计数到5000为500ms
@@ -51,7 +58,8 @@ static void Timer4_Init(u16 arr,u16 psc)
 	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
 
 	//float CCR1_Val = 0.5476*angle+75;
-	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	//TIM_OCInitTypeDef  TIM_OCInitStructure;
+	
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	//设置TIM3_CH2的跳变值
@@ -59,6 +67,7 @@ static void Timer4_Init(u16 arr,u16 psc)
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
+	
 	TIM_Cmd(TIM4, ENABLE);
 	
 	TIM_ITConfig( TIM4,TIM_IT_Update | TIM_IT_Trigger, ENABLE );
@@ -101,13 +110,14 @@ void Motor_Mode_Config(u16 CCR1_Val,u16 CCR3_Val)
 void Duoji_Mode_Config(int angle)
 {
 	float CCR1_Val = 0.5476*angle+75;
-	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	TIM4->CCR1 = CCR1_Val;
+	//TIM_OCInitTypeDef  TIM_OCInitStructure;
 	//TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	//TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	//设置TIM3_CH2的跳变值
-	TIM_OCInitStructure.TIM_Pulse = (int)CCR1_Val;
+	//TIM_OCInitStructure.TIM_Pulse = (int)CCR1_Val;
 	//TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
+	//TIM_OC1Init(TIM4, &TIM_OCInitStructure);
 	//TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
 	//TIM_Cmd(TIM4, ENABLE);
 }

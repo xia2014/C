@@ -31,17 +31,17 @@ void Scan_Command(void);
 int main(void)
 {
 	SysTick_Init();
-	//WiFi_Config();
-	//CameraInit();
+	WiFi_Config();
+	CameraInit();
 	Moving_Init();
 	GPIO_INFRARED_Config();
-	//ESP8266_Connect_Server();
+	ESP8266_Connect_Server();
 	infrared_scan_flag = 1;
 	stop_flag = 0;
 	while(1)
 	{
 		Delay_ms ( 500 );
-		//Scan_Command();
+		Scan_Command();
 		if( infrared_scan_flag == 1 )
 		//if( infrared_scan_flag == 1 && stop_flag != 1 )
 			Infrared_Scan();
