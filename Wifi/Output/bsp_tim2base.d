@@ -1,0 +1,13 @@
+..\..\Output\bsp_tim2base.o: ..\..\User\Tim2Bsae\bsp_Tim2Base.c
+..\..\Output\bsp_tim2base.o: ..\..\User\Tim2Bsae\bsp_Tim2Base.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\CMSIS\core_cm3.h
+..\..\Output\bsp_tim2base.o: D:\Keil\ARM\RV31\Inc\stdint.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\CMSIS\system_stm32f10x.h
+..\..\Output\bsp_tim2base.o: ..\..\User\stm32f10x_conf.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\FWlib\inc\stm32f10x_gpio.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\CMSIS\stm32f10x.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\FWlib\inc\stm32f10x_rcc.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\FWlib\inc\stm32f10x_tim.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
+..\..\Output\bsp_tim2base.o: ..\..\Libraries\FWlib\inc\misc.h
