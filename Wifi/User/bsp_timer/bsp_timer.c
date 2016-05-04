@@ -88,28 +88,6 @@ TIM3 Channel1 duty cycle = (TIM3_CCR1/ TIM3_ARR+1)* 100% = 50%
 TIM3 Channel3 duty cycle = (TIM3_CCR3/ TIM3_ARR+1)* 100% = 4.8%
 ----------------------------------------------------------------------- */
 
-void Motor_Mode_Config(u16 CCR1_Val,u16 CCR3_Val)
-{
-	TIM3->CCR1 = CCR1_Val;
-	TIM3->CCR3 = CCR3_Val;
-}
-
-void Duoji_Mode_Config(int angle)
-{
-	float CCR1_Val = 0.5476*angle+75;
-	TIM4->CCR1 = CCR1_Val;
-
-	//TIM_OCInitTypeDef  TIM_OCInitStructure;
-	//TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-	//TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-	//设置TIM3_CH2的跳变值
-	//TIM_OCInitStructure.TIM_Pulse = (int)CCR1_Val;
-	//TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-	//TIM_OC1Init(TIM4, &TIM_OCInitStructure);
-	//TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
-	//TIM_Cmd(TIM4, ENABLE);
-}
-
 void Moving_Init(void)
 {
 	Timer3_Init(1000,10);
@@ -125,8 +103,8 @@ void Motor_Control(void)
 	{
 		switch( strEsp8266_Fram_Record.Data_RX_BUF[1] )
 		{
-			case '1':Motor_GoStraight();stop_flag = 0;break;
-			case '2':Motor_Fallback();break;
+			case '1':Motor_Move(RUN_SPEED);stop_flag = 0;break;
+			case '2':Motor_Back(RUN_SPEED);break;
 			case '3':Motor_Stop();stop_flag = 1;break;
 		}
 	}
@@ -151,57 +129,58 @@ void Infrared_Scan(void)
 	//若检测到前方无障碍物，则舵机摆正，小车直行
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
 	{	   
-		Duoji_Zero();
-		Delay_ms( DELAY_TIME );
-		//Motor_GoStraight();
-		Motor_Mode_Config(SPEED,48);
-		Delay_ms( DELAY_TIME );	
+		MoveOrBack(0);	
 	}
-	//
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
 	{
-		Motor_Stop();
-		Delay_ms( DELAY_TIME );
-		//Motor_Fallback();
-		Motor_Mode_Config(48,SPEED);
-		Delay_ms( DELAY_TIME );
+		MoveOrBack(1);
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11) == 0 )   //L为0时左转
 	{
-		Motor_Mode_Config(48,SPEED);
-		Delay_ms(300);
-		Motor_Stop();
-		Duoji_Zero();
-		Delay_ms(100);
-		Motor_Mode_Config(48,SPEED);
-		Delay_ms( DELAY_TIME );
-		//Duoji_TurnLeft();
-		Motor_Stop();
-		Duoji_Mode_Config(ANGLE);
-		Delay_ms( DELAY_TIME );
-		//Motor_GoStraight();
-		Motor_Mode_Config(SPEED,48);
-		Delay_ms( DELAY_TIME );
+		Change_Direction(0);
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
 	{
-		Motor_Mode_Config(48,SPEED);
-		Delay_ms(300);
-		Motor_Stop();
+		Change_Direction(1);
+	}
+}
+
+void MoveOrBack( u8 Move_Back )
+{
+	//Duoji_Zero();
+	//Delay_ms(DELAY_TIME);
+	if( Move_Back == 0 )
+	{
 		Duoji_Zero();
-		Delay_ms(100);
-		Motor_Mode_Config(48,SPEED);
 		Delay_ms( DELAY_TIME );
-		//Duoji_TurnRight();
-		Motor_Stop();
-		Duoji_Mode_Config(-ANGLE);
+		Motor_Move(RUN_SPEED);
 		Delay_ms( DELAY_TIME );
-	//	Motor_Stop();
-		//Delay_ms( DELAY_TIME );
-		//Motor_GoStraight();
-		Motor_Mode_Config(SPEED,48);
+	}else{
+		Motor_Back(RUN_SPEED);
 		Delay_ms( DELAY_TIME );
 	}
+}
+
+void Change_Direction( u8 Left_Right )
+{
+	//Motor_Back( START_SPEED );//急刹车
+	//Delay_ms( DELAY_TIME );
+	Motor_Stop();//停下来
+	Duoji_Zero();//舵机摆正
+	//Motor_Back( START_SPEED );//高速启动
+	Delay_ms( DELAY_TIME );
+	Motor_Back( RUN_SPEED );//正常速度后退
+	Delay_ms( DELAY_TIME );
+	Motor_Stop();//停下来
+	if( Left_Right == 0 )
+		Duoji_Mode_Config(ANGLE);//重新左转
+	else
+		Duoji_Mode_Config(-ANGLE);//重新右转
+	Delay_ms( DELAY_TIME );
+	Motor_Move(START_SPEED);//高速启动
+	Delay_ms( DELAY_TIME );
+	Motor_Move(RUN_SPEED);//正常速度前进
+	Delay_ms( DELAY_TIME2 );
 }
 
 void Infrared(void)
