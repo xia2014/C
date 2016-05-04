@@ -90,27 +90,15 @@ TIM3 Channel3 duty cycle = (TIM3_CCR3/ TIM3_ARR+1)* 100% = 4.8%
 
 void Motor_Mode_Config(u16 CCR1_Val,u16 CCR3_Val)
 {
-	TIM_OCInitTypeDef  TIM_OCInitStructure;
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-	//设置TIM3_CH1的跳变值
-	TIM_OCInitStructure.TIM_Pulse = CCR1_Val;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-	//配置TIM3通道1
-	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
-	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
-	//配置TIM3通道3
-	//设置TIM3_CH3的跳变值
-	TIM_OCInitStructure.TIM_Pulse = CCR3_Val;
-	TIM_OC3Init(TIM3, &TIM_OCInitStructure);
-	TIM_OC3PreloadConfig(TIM3, TIM_OCPreload_Enable);
-	TIM_Cmd(TIM3, ENABLE);
+	TIM3->CCR1 = CCR1_Val;
+	TIM3->CCR3 = CCR3_Val;
 }
 
 void Duoji_Mode_Config(int angle)
 {
 	float CCR1_Val = 0.5476*angle+75;
 	TIM4->CCR1 = CCR1_Val;
+
 	//TIM_OCInitTypeDef  TIM_OCInitStructure;
 	//TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	//TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;

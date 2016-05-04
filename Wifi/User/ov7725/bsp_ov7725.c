@@ -306,7 +306,7 @@ void ImagDisp(void)
 {
 	uint16_t i, j;
 	uint16_t Camera_Data;
-	unsigned char temp1,temp2;
+//	unsigned char temp1,temp2;
 	if(screen_flag == 1)
 	{
 		DEBUG_PRINTF("Start sending.\r\n");
@@ -320,12 +320,13 @@ void ImagDisp(void)
 			READ_FIFO_PIXEL( Camera_Data );		/* 从FIFO读出一个rgb565像素到Camera_Data变量 */
 			if(screen_flag == 1)
 			{
-				temp1 = (Camera_Data&0xff00)>>8;
-				temp2 = Camera_Data&0x00ff;
-				USART2->DR = temp1;
-				while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
-				USART2->DR = temp2;
-				while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
+//				temp1 = (Camera_Data&0xff00)>>8;
+//				temp2 = Camera_Data&0x00ff;
+//				USART2->DR = temp1;
+//				while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
+//				USART2->DR = temp2;
+//				while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
+				Send_Data(Camera_Data);
 			}
 		}
 	}

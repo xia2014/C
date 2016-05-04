@@ -196,6 +196,13 @@
 	                                  FIFO_RCLK_H();\
                                     }while(0)
 
+#define Send_Data(RGB565) do{\
+								USART2->DR = (RGB565&0xff00)>>8;\
+								while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );\
+								USART2->DR = RGB565&0x00ff;\
+								while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );\
+							}while(0)
+
 #define OV7725_ID       0x21
 
 void Ov7725_GPIO_Config(void);

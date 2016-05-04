@@ -49,11 +49,11 @@ static int SCCB_Start(void)
 	SCL_H;
 	SCCB_delay();
 	if(!SDA_read)
-	return DISABLE;	/* SDA线为低电平则总线忙,退出 */
+		return DISABLE;	/* SDA线为低电平则总线忙,退出 */
 	SDA_L;
 	SCCB_delay();
 	if(SDA_read) 
-	return DISABLE;	/* SDA线为高电平则总线出错,退出 */
+		return DISABLE;	/* SDA线为高电平则总线出错,退出 */
 	SDA_L;
 	SCCB_delay();
 	return ENABLE;

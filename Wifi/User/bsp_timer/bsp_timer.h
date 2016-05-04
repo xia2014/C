@@ -4,6 +4,14 @@
 #include "bsp_gpio.h"
 #include "wifi_config.h"
 
+#define Motor_Mode_Config2(var1,var2) 	TIM3->CCR1 = var1;\
+	TIM3->CCR3 = var2
+#define Duoji_Mode_Config2(var) TIM4->CCR1 = var
+
+#define Motor_Move(var) Motor_Mode_Config2(var,48)
+#define Motor_Back(var) Motor_Mode_Config2(48,var)
+#define Motor_Stop2(var) Motor_Mode_Config2(48,48)
+
 #define Motor_GoStraight() Motor_Mode_Config(200,48)
 #define Motor_Fallback() Motor_Mode_Config(48,200)
 #define Motor_Stop() Motor_Mode_Config(48,48)
