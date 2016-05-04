@@ -127,8 +127,25 @@ void Duoji_Control(void)
 void Infrared_Scan(void)
 {
 	//若检测到前方无障碍物，则舵机摆正，小车直行
+//	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
+//	{	   
+//		MoveOrBack(0);	
+//	}
+//	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
+//	{
+//		MoveOrBack(1);
+//	}
+//	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11) == 0 )   //L为0时左转
+//	{
+//		Change_Direction(0);
+//	}
+//	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
+//	{
+//		Change_Direction(1);
+//	}
+	//A4->STOP
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1) == 1 )   //F为1时前面无障碍物
-	{	   
+	{
 		MoveOrBack(0);	
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8) == 0 )   //B为0时向后
@@ -137,11 +154,25 @@ void Infrared_Scan(void)
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11) == 0 )   //L为0时左转
 	{
-		Change_Direction(0);
+		if( GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4) == 0 )
+		{	
+			Duoji_Zero();
+			Motor_Stop();
+		}
+		else{
+			Change_Direction(0);
+		}
 	}
 	if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12) == 0 )   //R为0时右转
 	{
-		Change_Direction(1);
+		if( GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4) == 0 )
+		{	
+			Duoji_Zero();
+			Motor_Stop();
+		}
+		else{
+			Change_Direction(1);
+		}
 	}
 }
 

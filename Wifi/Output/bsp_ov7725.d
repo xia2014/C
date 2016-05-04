@@ -22,3 +22,4 @@
 ..\output\bsp_ov7725.o: ..\User\bsp_SysTick\bsp_SysTick.h
 ..\output\bsp_ov7725.o: ..\User\bsp_usart\bsp_usart.h
 ..\output\bsp_ov7725.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\output\bsp_ov7725.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\string.h

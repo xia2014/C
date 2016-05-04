@@ -23,3 +23,4 @@
 ..\output\main.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 ..\output\main.o: ..\User\ov7725\bsp_ov7725.h
 ..\output\main.o: ..\User\bsp_timer\bsp_timer.h
+..\output\main.o: D:\MyApps\Keil\ARM\ARMCC\bin\..\include\string.h

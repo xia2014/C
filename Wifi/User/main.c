@@ -16,7 +16,7 @@
 #include "wifi_function.h"
 #include "bsp_ov7725.h"
 #include "bsp_timer.h"
-
+#include <string.h>
 extern volatile uint8_t Ov7725_vsync ;
 volatile uint8_t screen_flag;
 volatile uint8_t infrared_scan_flag;
@@ -31,16 +31,19 @@ void Scan_Command(void);
 int main(void)
 {
 	SysTick_Init();
-	//WiFi_Config();
-	//CameraInit();
+	WiFi_Config();
+	CameraInit();
 	Moving_Init();
 	GPIO_INFRARED_Config();
-	//ESP8266_Connect_Server();
+	ESP8266_Connect_Server();
 	infrared_scan_flag = 1;
 	stop_flag = 0;
 	while(1)
 	{
-		//Scan_Command();
+		Delay_ms(200);
+		//FIFO_PREPARE;
+		Camera();
+		Scan_Command();
 		if( infrared_scan_flag == 1 )
 		//if( infrared_scan_flag == 1 && stop_flag != 1 )
 			Infrared_Scan();
@@ -53,7 +56,7 @@ void Scan_Command(void)
 	{
 		case 'A':Motor_Control();break;
 		case 'B':Duoji_Control();break;
-		case 'C':Camera();break;
+		case 'C':Camera();memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);break;
 		case 'D':Infrared();break;
 	}
 }

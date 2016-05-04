@@ -4,6 +4,7 @@
 #include "bsp_SysTick.h"
 #include "bsp_usart.h"
 #include <stdio.h>
+#include <string.h>
 extern volatile uint8_t screen_flag;
 extern volatile uint8_t Ov7725_vsync;
 typedef struct Reg
@@ -349,6 +350,7 @@ void Camera(void)
 			Ov7725_vsync = 0;
 			screen_flag = 0;
 		}
+		//memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
 }
 void CameraInit(void)
 {
