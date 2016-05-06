@@ -30,22 +30,30 @@ void Scan_Command(void);
 
 int main(void)
 {
+	/***********初始化部分***********/
+	//初始化滴答时钟，用于硬件延时
 	SysTick_Init();
-	WiFi_Config();
+	//初始化WiFi模块
+	WiFi_Init();
+	//初始化摄像头模块
 	CameraInit();
+	//初始化电机、舵机模块
 	Moving_Init();
-	GPIO_INFRARED_Config();
+	//初始化红外避障模块
+	Infrared_Init();
+	
+	//连接网页服务器
 	ESP8266_Connect_Server();
 	infrared_scan_flag = 1;
 	stop_flag = 0;
 	while(1)
 	{
+		//适当的延时，确保让MCU正确接收到命令
 		Delay_ms(200);
-		//FIFO_PREPARE;
-		Camera();
+		//扫描strEsp8266_Fram_Record.Data_RX_BUF的内容，根据命令做出相应的处理
 		Scan_Command();
+		//若红外避障标志置一，则执行红外自动避障
 		if( infrared_scan_flag == 1 )
-		//if( infrared_scan_flag == 1 && stop_flag != 1 )
 			Infrared_Scan();
 	}
 }
@@ -56,7 +64,7 @@ void Scan_Command(void)
 	{
 		case 'A':Motor_Control();break;
 		case 'B':Duoji_Control();break;
-		case 'C':Camera();memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);break;
+		case 'C':Camera();break;
 		case 'D':Infrared();break;
 	}
 }

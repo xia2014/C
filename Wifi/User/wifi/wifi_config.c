@@ -26,7 +26,7 @@ struct  STRUCT_USARTx_Fram strEsp8266_Fram_Record = { 0 };
   * @param  нч
   * @retval нч
   */
-void WiFi_Config( void )
+void WiFi_Init( void )
 {
 	//GPIO_WIFI_Config();
 	GPIO_USART1_Config();

@@ -10,4 +10,5 @@ void GPIO_SPI3_Config(void);
 void GPIO_DUOJI_Config(void);
 void GPIO_MOTOR_Config(void);
 void GPIO_INFRARED_Config(void);
+#define Infrared_Init() GPIO_INFRARED_Config()
 #endif /* __GPIO_H */

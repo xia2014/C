@@ -341,16 +341,21 @@ void ImagDisp(void)
 }
 void Camera(void)
 {
-		if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'C' )
-			screen_flag = 1;
-		if( Ov7725_vsync == 2 )
-		{
-			FIFO_PREPARE;  			/*FIFO准备*/
-			ImagDisp();					/*采集并显示*/
-			Ov7725_vsync = 0;
-			screen_flag = 0;
-		}
-		//memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
+//	EXTI_InitTypeDef EXTI_InitStructure;
+//	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+//    EXTI_Init(&EXTI_InitStructure);
+	
+	if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'C' )
+		screen_flag = 1;
+	if( Ov7725_vsync == 2 )
+	{
+		FIFO_PREPARE;  			/*FIFO准备*/
+		ImagDisp();					/*采集并显示*/
+		Ov7725_vsync = 0;
+		screen_flag = 0;
+	}
+//	EXTI_InitStructure.EXTI_LineCmd = DISABLE;
+//    EXTI_Init(&EXTI_InitStructure);
 }
 void CameraInit(void)
 {

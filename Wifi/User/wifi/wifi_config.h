@@ -55,6 +55,6 @@ extern struct  STRUCT_USARTx_Fram                                  //´®¿ÚÊý¾ÝÖ¡µ
 	}; 
 } strPc_Fram_Record, strEsp8266_Fram_Record;
 
-void WiFi_Config( void );
+void WiFi_Init( void );
 
 #endif    /* __WIFI_CONFIG_H */
