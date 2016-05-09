@@ -226,4 +226,34 @@ void Infrared(void)
 	}
 }
 
+void Infrared_Scan2(void)
+{
+	u8 state,state_bit[4];
+	READ_INFO(state);
+	state_bit[0] = (state&0x08)>>3;
+	state_bit[1] = (state&0x04)>>2;
+	state_bit[2] = (state&0x02)>>1;
+	state_bit[3] = (state&0x01)>>0;
+	if( state_bit[0] == 1 )
+	{
+		//move
+	}else{
+		if( state_bit[1] == 0 )
+		{
+			//stop
+		}else{
+			if( (state_bit[0]==0 && state_bit[1]==1 && state_bit[2]==0 && state_bit[3]==1) ||
+				(state_bit[0]==0 && state_bit[1]==1 && state_bit[2]==1 && state_bit[3]==1)	)
+			{
+				//turn_right
+			}else if( state_bit[0]==0 && state_bit[1]==1 && state_bit[2]==1 && state_bit[3]==0 )
+			{
+				//turn_left
+			}else{
+				//back
+			}
+		}
+	}
+}
+
 /***************************END OF FILE****************************/

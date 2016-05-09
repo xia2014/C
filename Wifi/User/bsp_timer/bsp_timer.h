@@ -23,6 +23,11 @@
 #define RUN_SPEED 220
 #define ANGLE 60
 
+#define READ_INFO(INFO)   	do{\
+	                                  INFO=0;\
+	                                  INFO = (GPIOC->IDR) & 0x000f;\
+                                    }while(0)
+
 void Moving_Init(void);
 void Motor_Control(void);
 void Duoji_Control(void);
@@ -30,4 +35,5 @@ void Infrared_Scan(void);
 void Infrared(void);
 void MoveOrBack( u8 Move_Back );
 void Change_Direction( u8 Left_Right );
+void Infrared_Scan2(void);
 #endif

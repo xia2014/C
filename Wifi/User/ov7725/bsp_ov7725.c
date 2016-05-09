@@ -336,17 +336,13 @@ void ImagDisp(void)
 		ESP8266_Usart ( "END" );
 		DEBUG_PRINTF("End of ending.\r\n");
 		//printf("End of ending.\r\n");
-		strEsp8266_Fram_Record.Data_RX_BUF[0] = '\0';
+		memset(strEsp8266_Fram_Record.Data_RX_BUF,0,3);
 	}
 }
 void Camera(void)
-{
-//	EXTI_InitTypeDef EXTI_InitStructure;
-//	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-//    EXTI_Init(&EXTI_InitStructure);
-	
-	if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'C' )
-		screen_flag = 1;
+{	
+	//if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'C' )
+	//	screen_flag = 1;
 	if( Ov7725_vsync == 2 )
 	{
 		FIFO_PREPARE;  			/*FIFO×¼±¸*/
@@ -354,8 +350,6 @@ void Camera(void)
 		Ov7725_vsync = 0;
 		screen_flag = 0;
 	}
-//	EXTI_InitStructure.EXTI_LineCmd = DISABLE;
-//    EXTI_Init(&EXTI_InitStructure);
 }
 void CameraInit(void)
 {

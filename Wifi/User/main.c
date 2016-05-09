@@ -18,7 +18,7 @@
 #include "bsp_timer.h"
 #include <string.h>
 extern volatile uint8_t Ov7725_vsync ;
-volatile uint8_t screen_flag;
+volatile uint8_t screen_flag = 0;
 volatile uint8_t infrared_scan_flag;
 volatile uint8_t stop_flag;
 /*
@@ -44,17 +44,19 @@ int main(void)
 	
 	//连接网页服务器
 	ESP8266_Connect_Server();
-	infrared_scan_flag = 1;
+	//infrared_scan_flag = 1;
 	stop_flag = 0;
 	while(1)
 	{
 		//适当的延时，确保让MCU正确接收到命令
-		Delay_ms(200);
+		Delay_ms(50);
+		//为保证图像的实时性，在while循环里一直调用摄像头函数
+		Camera();
 		//扫描strEsp8266_Fram_Record.Data_RX_BUF的内容，根据命令做出相应的处理
 		Scan_Command();
 		//若红外避障标志置一，则执行红外自动避障
-		if( infrared_scan_flag == 1 )
-			Infrared_Scan();
+		//if( infrared_scan_flag == 1 )
+			//Infrared_Scan();
 	}
 }
 
@@ -64,7 +66,7 @@ void Scan_Command(void)
 	{
 		case 'A':Motor_Control();break;
 		case 'B':Duoji_Control();break;
-		case 'C':Camera();break;
+		case 'C':screen_flag = 1;break;
 		case 'D':Infrared();break;
 	}
 }
