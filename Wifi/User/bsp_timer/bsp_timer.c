@@ -201,7 +201,7 @@ void Change_Direction( u8 Left_Right )
 	//Motor_Back( START_SPEED );//高速启动
 	Delay_ms( DELAY_TIME );
 	Motor_Back( RUN_SPEED );//正常速度后退
-	Delay_ms( DELAY_TIME );
+	Delay_ms( DELAY_TIME2 );
 	Motor_Stop();//停下来
 	if( Left_Right == 0 )
 		Duoji_Mode_Config(ANGLE);//重新左转
@@ -228,31 +228,52 @@ void Infrared(void)
 
 void Infrared_Scan2(void)
 {
-	u8 state,state_bit[4];
-	READ_INFO(state);
-	state_bit[0] = (state&0x08)>>3;
-	state_bit[1] = (state&0x04)>>2;
-	state_bit[2] = (state&0x02)>>1;
-	state_bit[3] = (state&0x01)>>0;
+	u8 /*state,*/state_bit[4];
+	/*READ_INFO(state);
+	state_bit[3] = (state&0x08)>>3;//R
+	state_bit[2] = (state&0x04)>>2;//L
+	state_bit[1] = (state&0x02)>>1;//B
+	state_bit[0] = (state&0x01)>>0;//F*/
+	state_bit[3] = GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_3);//R
+	state_bit[2] = GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_2);//L
+	state_bit[1] = GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_1);//B
+	state_bit[0] = GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0);//F
 	if( state_bit[0] == 1 )
 	{
+		MoveOrBack(MOVE);
 		//move
 	}else{
 		if( state_bit[1] == 0 )
 		{
+			Motor_Stop();//停下来
+			Duoji_Zero();//舵机摆正
 			//stop
 		}else{
 			if( (state_bit[0]==0 && state_bit[1]==1 && state_bit[2]==0 && state_bit[3]==1) ||
 				(state_bit[0]==0 && state_bit[1]==1 && state_bit[2]==1 && state_bit[3]==1)	)
 			{
+				Change_Direction(RIGHT);
 				//turn_right
 			}else if( state_bit[0]==0 && state_bit[1]==1 && state_bit[2]==1 && state_bit[3]==0 )
 			{
+				Change_Direction(LEFT);
 				//turn_left
 			}else{
+				MoveOrBack(BACK);
 				//back
 			}
 		}
+	}
+}
+
+void Infrared_Scan3(void)
+{
+	if( GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_2) == 0 )
+	{	
+		Duoji_Zero();
+		Motor_Stop();
+	}else{
+		Motor_Move(RUN_SPEED);
 	}
 }
 

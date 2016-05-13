@@ -355,10 +355,10 @@ void ESP8266_Connect_Server ( void )
 	ESP8266_Net_Mode_Choose ( STA );
 	do
 	{
-		pStrDelimiter [0] = "NETGEAR65";
-		pStrDelimiter [1] = "kindwindow635";
-//		pStrDelimiter [0] = "xhs";
-//		pStrDelimiter [1] = "12345678";
+//		pStrDelimiter [0] = "NETGEAR65";
+//		pStrDelimiter [1] = "kindwindow635";
+		pStrDelimiter [0] = "xhs";
+		pStrDelimiter [1] = "12345678";
   } while ( ! ESP8266_JoinAP ( pStrDelimiter [0], pStrDelimiter [1] ) );
 
 	while ( ! ESP8266_Link_Server ( enumTCP, "114.215.111.84", "1234", Single_ID ) );

@@ -23,6 +23,11 @@
 #define RUN_SPEED 220
 #define ANGLE 60
 
+#define LEFT 0
+#define RIGHT 1
+#define MOVE 0
+#define BACK 1
+
 #define READ_INFO(INFO)   	do{\
 	                                  INFO=0;\
 	                                  INFO = (GPIOC->IDR) & 0x000f;\
@@ -36,4 +41,5 @@ void Infrared(void);
 void MoveOrBack( u8 Move_Back );
 void Change_Direction( u8 Left_Right );
 void Infrared_Scan2(void);
+void Infrared_Scan3(void);
 #endif

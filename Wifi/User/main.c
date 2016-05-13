@@ -44,8 +44,8 @@ int main(void)
 	
 	//连接网页服务器
 	ESP8266_Connect_Server();
-	//infrared_scan_flag = 1;
-	stop_flag = 0;
+	infrared_scan_flag = 1;
+	//stop_flag = 0;
 	while(1)
 	{
 		//适当的延时，确保让MCU正确接收到命令
@@ -55,8 +55,8 @@ int main(void)
 		//扫描strEsp8266_Fram_Record.Data_RX_BUF的内容，根据命令做出相应的处理
 		Scan_Command();
 		//若红外避障标志置一，则执行红外自动避障
-		//if( infrared_scan_flag == 1 )
-			//Infrared_Scan();
+		if( infrared_scan_flag == 1 )
+			Infrared_Scan2();
 	}
 }
 
