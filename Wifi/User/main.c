@@ -51,7 +51,7 @@ int main(void)
 		//适当的延时，确保让MCU正确接收到命令
 		Delay_ms(50);
 		//为保证图像的实时性，在while循环里一直调用摄像头函数
-		Camera();
+		//Camera();
 		//扫描strEsp8266_Fram_Record.Data_RX_BUF的内容，根据命令做出相应的处理
 		Scan_Command();
 		//若红外避障标志置一，则执行红外自动避障
@@ -66,7 +66,7 @@ void Scan_Command(void)
 	{
 		case 'A':Motor_Control();break;
 		case 'B':Duoji_Control();break;
-		case 'C':screen_flag = 1;break;
+		case 'C':/*screen_flag = 1;*/Camera();break;
 		case 'D':Infrared();break;
 	}
 }

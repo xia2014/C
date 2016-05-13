@@ -211,4 +211,5 @@ void VSYNC_Init(void);
 void ImagDisp(void);
 void Camera(void);
 void CameraInit(void);
+void caiji(void);
 #endif

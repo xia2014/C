@@ -553,10 +553,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>22</ColumnNumber>
+      <ColumnNumber>39</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>35</TopLine>
-      <CurrentLine>59</CurrentLine>
+      <TopLine>50</TopLine>
+      <CurrentLine>69</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\User\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -619,7 +619,7 @@
       <Focus>0</Focus>
       <ColumnNumber>2</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>2</TopLine>
+      <TopLine>3</TopLine>
       <CurrentLine>10</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\User\bsp_gpio\bsp_gpio.c</PathWithFileName>
@@ -683,7 +683,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>221</TopLine>
+      <TopLine>222</TopLine>
       <CurrentLine>229</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\User\bsp_timer\bsp_timer.c</PathWithFileName>
@@ -729,10 +729,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>18</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>320</TopLine>
-      <CurrentLine>328</CurrentLine>
+      <TopLine>334</TopLine>
+      <CurrentLine>336</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\User\ov7725\bsp_ov7725.c</PathWithFileName>
       <FilenameWithoutPath>bsp_ov7725.c</FilenameWithoutPath>

@@ -321,12 +321,6 @@ void ImagDisp(void)
 			READ_FIFO_PIXEL( Camera_Data );		/* 从FIFO读出一个rgb565像素到Camera_Data变量 */
 			if(screen_flag == 1)
 			{
-//				temp1 = (Camera_Data&0xff00)>>8;
-//				temp2 = Camera_Data&0x00ff;
-//				USART2->DR = temp1;
-//				while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
-//				USART2->DR = temp2;
-//				while( USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
 				Send_Data(Camera_Data);
 			}
 		}
@@ -342,7 +336,16 @@ void ImagDisp(void)
 void Camera(void)
 {	
 	//if( strEsp8266_Fram_Record.Data_RX_BUF[0] == 'C' )
-	//	screen_flag = 1;
+		screen_flag = 1;
+	if( Ov7725_vsync == 2 )
+	{
+		FIFO_PREPARE;  			/*FIFO准备*/
+		//ImagDisp();					/*采集并显示*/
+		caiji();
+		Ov7725_vsync = 0;
+		//screen_flag = 0;
+	}
+	Delay_ms(300);
 	if( Ov7725_vsync == 2 )
 	{
 		FIFO_PREPARE;  			/*FIFO准备*/
@@ -361,5 +364,18 @@ void CameraInit(void)
 	VSYNC_Init();
 	screen_flag = 0;
 	Ov7725_vsync = 0;
+}
+
+void caiji(void)
+{
+	uint16_t i, j;
+	uint16_t Camera_Data;
+	for(i = 0; i < 240; i++)
+	{
+		for(j = 0; j < 320; j++)
+		{
+			READ_FIFO_PIXEL( Camera_Data );		/* 从FIFO读出一个rgb565像素到Camera_Data变量 */
+		}
+	}
 }
 
